@@ -31,7 +31,12 @@ module.exports = {
 		}
 	],
 	rules: {
+		// @typescript-eslint
 		'@typescript-eslint/explicit-function-return-type': 'off',
+		'@typescript-eslint/indent': ['error', 'tab', {
+			MemberExpression: 0,
+			SwitchCase: 1
+		}],
 		'@typescript-eslint/no-unused-vars': ['error', {
 			vars: 'all',
 			args: 'after-used',
@@ -41,10 +46,17 @@ module.exports = {
 			caughtErrorsIgnorePattern: '^_'
 		}],
 		'@typescript-eslint/restrict-plus-operands': 'off',
+
+		// react
+		'react/jsx-max-props-per-line': ['error', { maximum: 1, when: 'multiline' }],
+
+		// Core
+		'arrow-parens': 'off',
 		'capitalized-comments': 'off',
+		'generator-star-spacing': ['error', { before: false, after: true }],
 		'no-multiple-empty-lines': ['error', { max: 2 }],
 		'object-curly-spacing': ['error', 'always'],
 		'operator-linebreak': ['error', 'after', { overrides: { '?': 'before', ':': 'before' } }],
-		'react/jsx-max-props-per-line': ['error', { maximum: 1, when: 'multiline' }]
+		'yield-star-spacing': ['error', 'after']
 	}
 };
