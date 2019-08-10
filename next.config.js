@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require('path');
 const { PHASE_DEVELOPMENT_SERVER } = require('next/constants');
 const nextComposePlugins = require('next-compose-plugins');

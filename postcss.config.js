@@ -1,3 +1,5 @@
+'use strict';
+
 const cssnano = require('cssnano');
 const postcssPresetEnv = require('postcss-preset-env');
 const postcssFixes = require('postcss-fixes');
