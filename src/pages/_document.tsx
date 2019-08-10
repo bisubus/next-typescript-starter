@@ -21,6 +21,7 @@ class CustomDocument extends Document {
 				</Head>
 				<body>
 					<Main/>
+					<script src="https://cdn.polyfill.io/v2/polyfill.min.js"/>
 					<NextScript/>
 				</body>
 			</Html>
