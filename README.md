@@ -7,7 +7,7 @@ Contains the necessary configuration and essential Next.js plugins.
 ## Features
 
 - TypeScript
-- CSS module loaders (CSS, SCSS, LESS)
+- Style loaders (CSS, SCSS, LESS) with PostCSS (Autoprefixer, PostCSS Fixes) and opt-in CSS modules
 - Image loaders (SVG, etc) 
 - Next SEO
 - Jest + Enzyme

@@ -13,9 +13,13 @@
     "url": "https://github.com/author-name-placeholder/project-name-placeholder/issues"
   },
   "keywords": [],
+  "engines": {
+    "node": ">=8.3.0"
+  },
   "scripts": {
     "init": "node ./scripts/init-project.js",
     "dev": "next ./src",
+    "dev-config": "cross-env DEBUG_CONFIG=true next ./src",
     "build": "next build ./src",
     "build:analyze": "cross-env ANALYZE=true yarpm run build",
     "build:maxify": "cross-env ANALYZE=true MINIFY=false yarpm run build",
@@ -50,6 +54,7 @@
     "@zeit/next-sass": "^1.0.1",
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "cross-env": "^5.2.0",
+    "cssnano": "^4.1.10",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^6.1.0",
@@ -66,9 +71,23 @@
     "next-size": "^2.0.2",
     "next-transpile-modules": "^2.3.1",
     "node-sass": "^4.12.0",
+    "postcss-fixes": "^2.0.1",
+    "postcss-preset-env": "^6.7.0",
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.3",
     "webpack-bundle-analyzer": "^3.3.2",
     "yarpm": "^0.2.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
