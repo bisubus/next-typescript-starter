@@ -37,7 +37,7 @@ assert.ok(AUTHOR_NAME_REGEXP.test(authorName), authorName);
 assert.ok(projectName, 'No project name');
 assert.ok(PROJECT_NAME_REGEXP.test(projectName), projectName);
 
-assert.ok(projectName, 'No package name');
+assert.ok(packageName, 'No package name');
 assert.ok(PACKAGE_NAME_REGEXP.test(packageName), packageName);
 
 function init() {
@@ -52,6 +52,7 @@ function init() {
 		if (AUTHOR_PLACEHOLDER_REGEXP.test(fileContent)) {
 			fileContent = fileContent
 			.replace(AUTHOR_PLACEHOLDER_REGEXP, authorName);
+
 			isModified = true;
 		}
 
@@ -59,6 +60,7 @@ function init() {
 			fileContent = fileContent
 			.replace(PROJECT_PLACEHOLDER_PASCAL_CASE_REGEXP, toPascalCase(projectName))
 			.replace(PROJECT_PLACEHOLDER_KEBAB_CASE_REGEXP, projectName);
+
 			isModified = true;
 		}
 
@@ -72,11 +74,13 @@ function init() {
 		if (filePath === packageJsonPath) {
 			fileContent = fileContent
 			.replace(INIT_SCRIPT_REGEXP, '');
+
 			isModified = true;
 		}
 
 		if (isModified) {
 			console.log(`Processed: ${filePath}`);
+
 			if (!isDryRun) {
 				fs.writeFileSync(filePath, fileContent, 'utf8');
 			}
@@ -102,7 +106,7 @@ function toPascalCase(str) {
 	return str.replace(/(\w)(\w*)/g, (match, p1, p2) => (p1.toUpperCase() + p2.toLowerCase()));
 }
 
-function * walkSync(dir) {
+function* walkSync(dir) {
 	const files = fs.readdirSync(dir);
 
 	for (const file of files) {
@@ -117,7 +121,7 @@ function * walkSync(dir) {
 		const isDirectory = fs.statSync(pathToFile).isDirectory();
 
 		if (isDirectory) {
-			yield * walkSync(pathToFile);
+			yield* walkSync(pathToFile);
 		} else {
 			yield pathToFile;
 		}
