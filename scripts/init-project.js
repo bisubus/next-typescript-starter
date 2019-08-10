@@ -51,27 +51,27 @@ function init() {
 
 		if (AUTHOR_PLACEHOLDER_REGEXP.test(fileContent)) {
 			fileContent = fileContent
-				.replace(AUTHOR_PLACEHOLDER_REGEXP, authorName);
+			.replace(AUTHOR_PLACEHOLDER_REGEXP, authorName);
 			isModified = true;
 		}
 
 		if (PROJECT_PLACEHOLDER_REGEXP.test(fileContent)) {
 			fileContent = fileContent
-				.replace(PROJECT_PLACEHOLDER_PASCAL_CASE_REGEXP, toPascalCase(projectName))
-				.replace(PROJECT_PLACEHOLDER_KEBAB_CASE_REGEXP, projectName);
+			.replace(PROJECT_PLACEHOLDER_PASCAL_CASE_REGEXP, toPascalCase(projectName))
+			.replace(PROJECT_PLACEHOLDER_KEBAB_CASE_REGEXP, projectName);
 			isModified = true;
 		}
 
 		if (PACKAGE_PLACEHOLDER_REGEXP.test(fileContent)) {
 			fileContent = fileContent
-				.replace(PACKAGE_PLACEHOLDER_REGEXP, packageName);
+			.replace(PACKAGE_PLACEHOLDER_REGEXP, packageName);
 
 			isModified = true;
 		}
 
 		if (filePath === packageJsonPath) {
 			fileContent = fileContent
-				.replace(INIT_SCRIPT_REGEXP, '');
+			.replace(INIT_SCRIPT_REGEXP, '');
 			isModified = true;
 		}
 

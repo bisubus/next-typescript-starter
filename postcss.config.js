@@ -13,7 +13,7 @@ module.exports = ({ env }) => {
 			calc: false // already done by postcss-fixes due to precision rounding reasons
 		})
 	]
-		.filter(Boolean);
+	.filter(Boolean);
 
 	return { plugins };
 };
