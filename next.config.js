@@ -50,10 +50,10 @@ const nextConfigDebugger = ({ enabled = false }) => (nextConfig = {}) => ({
 			const util = require('util');
 
 			console.log('NEXT');
-			console.log(util.inspect(nextConfig, { showHidden: false, depth: 6 }));
+			console.log(util.inspect(nextConfig, { showHidden: false, depth: 7 }));
 			console.log();
 			console.log('WEBPACK');
-			console.log(util.inspect(config, { showHidden: false, depth: 6 }));
+			console.log(util.inspect(config, { showHidden: false, depth: 7 }));
 
 			process.exit();
 		}
