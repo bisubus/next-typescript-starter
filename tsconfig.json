@@ -27,6 +27,10 @@
     "dist",
     "node_modules",
     "**/__mocks__",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/*.test.ts",
+    "**/*.test.tsx",
     "**/~~**/*",
     "**/**~~/*"
   ],
