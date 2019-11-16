@@ -97,11 +97,15 @@ const nextSvgr = (nextConfig = {}) => ({
 	}
 });
 
-const patchStylePlugin = plugin => (nextConfig = {}) => {
-	const STYLE_LOADER_REGEXP = /^(css|less|sass)-loader.*/;
+const patchStylesheetPlugin = plugin => (nextConfig = {}) => {
+	const STYLESHEET_LOADER_REGEXP = /^(css|less|sass|stylus)-loader.*/;
 
 	const pluginNextConfig = plugin({
 		...nextConfig,
+		experimental: {
+			...nextConfig.experimental,
+			css: false
+		},
 		cssModules: true, // required for SSR
 		webpack: null // skip chaining
 	});
@@ -113,16 +117,21 @@ const patchStylePlugin = plugin => (nextConfig = {}) => {
 		const originalModuleRules = config.module.rules;
 		config.module.rules = [];
 		pluginWebpackFn.apply(this, [config, options]);
-		const styleModuleRules = config.module.rules;
+		const stylesheetModuleRules = config.module.rules;
 		config.module.rules = originalModuleRules;
-		for (const rule of styleModuleRules) {
+
+		for (const rule of stylesheetModuleRules) {
+			const ruleFixedRegexp = new RegExp('(?:prevent monkey patching){0}' + rule.test.source);
+			const ruleModuleRegexp = new RegExp('\\.module' + rule.test.source);
+
 			const nonModularRule = {
 				...rule,
-				exclude: new RegExp('\\.module' + rule.test.source),
+				test: ruleFixedRegexp,
+				exclude: ruleModuleRegexp,
 				sideEffects: true,
 				// restore plugin's SSR optimization
 				use: isServer ? ['ignore-loader'] : rule.use.map(useEntry => {
-					if (STYLE_LOADER_REGEXP.test(useEntry.loader)) {
+					if (STYLESHEET_LOADER_REGEXP.test(useEntry.loader)) {
 						useEntry = {
 							...useEntry,
 							options: {
@@ -138,15 +147,15 @@ const patchStylePlugin = plugin => (nextConfig = {}) => {
 
 			const modularRule = {
 				...rule,
-				test: new RegExp('\\.module' + rule.test.source),
+				test: ruleModuleRegexp,
 				use: rule.use.map(useEntry => {
-					if (STYLE_LOADER_REGEXP.test(useEntry.loader)) {
+					if (STYLESHEET_LOADER_REGEXP.test(useEntry.loader)) {
 						useEntry = {
 							...useEntry,
 							options: {
 								...useEntry.options,
-								modules: true,
 								importLoaders: 1,
+								modules: true,
 								localIdentName: '[local]___[hash:base64:5]'
 							}
 						};
@@ -169,10 +178,9 @@ const patchStylePlugin = plugin => (nextConfig = {}) => {
 	return pluginNextConfig;
 };
 
-const nextModularCss = patchStylePlugin(nextCss);
-const nextModularLess = patchStylePlugin(nextLess);
-const nextModularSass = patchStylePlugin(nextSass);
-
+const nextModularCss = patchStylesheetPlugin(nextCss);
+const nextModularLess = patchStylesheetPlugin(nextLess);
+const nextModularSass = patchStylesheetPlugin(nextSass);
 
 module.exports = (phase, { defaultConfig }) => {
 	const isDev = (phase === PHASE_DEVELOPMENT_SERVER);
