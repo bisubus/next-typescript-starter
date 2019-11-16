@@ -1,5 +1,5 @@
 import * as React from 'react';
-import NextApp, { Container } from 'next/app';
+import NextApp from 'next/app';
 import { DefaultSeo } from 'next-seo';
 
 class App extends NextApp {
@@ -17,12 +17,12 @@ class App extends NextApp {
 		const { Component, pageProps } = this.props;
 
 		return (
-			<Container>
+			<>
 				<DefaultSeo
 					titleTemplate="%s"
 				/>
 				<Component {...pageProps}/>
-			</Container>
+			</>
 		);
 	}
 }
