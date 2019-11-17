@@ -1,3 +1,5 @@
-.Home {
-	background-color: #282c34;
+.Home:before {
+	content: "Global style";
+    font-size: smaller;
+	opacity: 0.5;
 }

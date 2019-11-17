@@ -2,6 +2,8 @@ import * as React from 'react';
 import NextApp from 'next/app';
 import { DefaultSeo } from 'next-seo';
 
+import './styles.css';
+
 class App extends NextApp {
 	static async getInitialProps({ Component, ctx }) {
 		let pageProps = {};
